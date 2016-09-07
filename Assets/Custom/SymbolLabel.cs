@@ -54,7 +54,8 @@ public class SymbolLabel : MonoBehaviour
         m_TextLabel.transform.localPosition = Vector3.zero;
         if (overflowMethod == UILabel.Overflow.ClampContent)
         {
-            m_TextLabel.height = fontSize;
+			if(maxLine!=0)
+            	m_TextLabel.height = fontSize;
             m_TextLabel.maxLineCount = maxLine;
         }
 
@@ -70,6 +71,10 @@ public class SymbolLabel : MonoBehaviour
         m_SymbolLabel.SetSymbolOffset(SymbolOffset);
     }
 
+	void Start()
+	{
+		RefreshSymbolList();
+	}
     public int height
     {
         get
@@ -113,44 +118,7 @@ public class SymbolLabel : MonoBehaviour
 
             m_Text = value;
 
-            string mProcessedText = m_TextLabel.processedText;
-
-            if (overflowMethod == UILabel.Overflow.ResizeHeight) mProcessedText = m_Text;
-            else NGUIText.WrapText(m_Text, out mProcessedText);
-
-            StringBuilder sString = new StringBuilder();
-            string t = value;
-            const string pattern = @"\#\w\w";
-
-            m_realText = NGUIText.StripSymbols(mProcessedText);
-            m_matchs = Regex.Matches(m_realText, pattern);
-
-            const string pat = " ";
-            m_spaceMatchs = Regex.Matches(mProcessedText, pat);
-
-            if (m_matchs.Count > 0)
-            {
-                Match item;
-                for (int i = 0; i < m_matchs.Count; i++)
-                {
-                    item = m_matchs[i];
-					string name = item.Value.Substring(1,2);
-					string realname = "{"+name+"}";
-					if (m_Symbols.IndexOf(realname) > -1)
-                    {
-                        m_realMatchs.Add(item);
-						sString.Append(realname);
-                    }
-                }
-            }
-
-            m_TextLabel.text = t;
-            m_SymbolLabel.text = sString.ToString();
-
-            m_SymbolLabel.width = m_TextLabel.width;
-            m_SymbolLabel.height = m_TextLabel.height;
-
-            m_SymbolLabel.MarkAsChanged();
+			RefreshSymbolList();
         }
     }
 
@@ -270,5 +238,50 @@ public class SymbolLabel : MonoBehaviour
 
         return itemIndex - count;
     }
+
+	private void RefreshSymbolList()
+	{
+		if (m_realMatchs == null) return;
+
+		m_realMatchs.Clear ();
+
+		string mProcessedText = m_TextLabel.processedText;
+		
+		if (overflowMethod == UILabel.Overflow.ResizeHeight) mProcessedText = m_Text;
+		else NGUIText.WrapText(m_Text, out mProcessedText);
+		
+		StringBuilder sString = new StringBuilder();
+		const string pattern = @"\#\w\w";
+		
+		m_realText = NGUIText.StripSymbols(mProcessedText);
+		m_matchs = Regex.Matches(m_realText, pattern);
+		
+		const string pat = "\\s";
+		m_spaceMatchs = Regex.Matches(m_realText, pat);
+		
+		if (m_matchs.Count > 0)
+		{
+			Match item;
+			for (int i = 0; i < m_matchs.Count; i++)
+			{
+				item = m_matchs[i];
+				string name = item.Value.Substring(1,2);
+				string realname = "{"+name+"}";
+				if (m_Symbols.IndexOf(realname) > -1)
+				{
+					m_realMatchs.Add(item);
+					sString.Append(realname);
+				}
+			}
+		}
+		
+		m_TextLabel.text = m_Text;
+		m_SymbolLabel.text = sString.ToString();
+		
+		m_SymbolLabel.width = m_TextLabel.width;
+		m_SymbolLabel.height = m_TextLabel.height;
+		
+		m_SymbolLabel.MarkAsChanged();
+	}
 
 }

@@ -102,7 +102,7 @@ public class Material_Texture_Calculation:MonoBehaviour
 			UnityEngine.Debug.Log ("Material Name:" + MaterialName);
 			for (int i=0; i<Length; i++)
 			{
-    				UnityEngine.Debug.Log(" |Texture Name:" names[i]+ "   Texture Size:" +sizes[i] + "kb|");
+				UnityEngine.Debug.Log(" |Texture Name:" +names[i]+ "   Texture Size:" +sizes[i] + "kb|");
 			}
 		}
 	}
@@ -164,9 +164,9 @@ public class Material_Texture_Calculation:MonoBehaviour
 		AddByDescending(calualation);
 		print (calualation);
 		PrintToFile(calualation);
-		UnityEngine.Debug.LogWarnging("Material Number:" + materialnames.Count);
-		UnityEditor.Debug.LogWarnging("Textures Name:" + pngnames.Count);
-		PrintResults(materialnames,pngnames);
+		UnityEngine.Debug.LogWarning("Material Number:" + materialnames.Count);
+		UnityEngine.Debug.LogWarning("Textures Name:" + pngnames.Count);
+		PrintResultes(materialnames,pngnames);
 	}
 	public static void AddByDescending(List<AllInfo> list)
 	{
@@ -201,7 +201,7 @@ public class Material_Texture_Calculation:MonoBehaviour
 			File.Delete(path);
 		}
 		FileStream filestream = File.Create (path);
-		StringWriter steamwriter = new StreamWriter(filestream);
+		StreamWriter steamwriter = new StreamWriter(filestream);
 		int count = list.Count;
 		for (int i=0; i<count; i++) 
 		{
