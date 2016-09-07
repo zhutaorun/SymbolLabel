@@ -1,0 +1,11 @@
+D:\symbolLabel\Temp\UnityVS_bin\Debug\Assembly-CSharp.dll
+D:\symbolLabel\Temp\UnityVS_bin\Debug\Assembly-CSharp.pdb
+D:\symbolLabel\Temp\UnityVS_bin\Debug\UnityEditor.dll
+D:\symbolLabel\Temp\UnityVS_bin\Debug\UnityEngine.dll
+D:\symbolLabel\Temp\UnityVS_bin\Debug\UnityEngine.UI.dll
+D:\symbolLabel\Temp\UnityVS_bin\Debug\UnityEngine.xml
+D:\symbolLabel\Temp\UnityVS_bin\Debug\UnityEditor.xml
+D:\symbolLabel\Temp\UnityVS_bin\Debug\UnityEngine.UI.xml
+D:\symbolLabel\obj\Debug\UnityVS.symbolLabel.CSharp.csprojResolveAssemblyReference.cache
+D:\symbolLabel\obj\Debug\Assembly-CSharp.dll
+D:\symbolLabel\obj\Debug\Assembly-CSharp.pdb
